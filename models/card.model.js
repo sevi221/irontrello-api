@@ -9,7 +9,19 @@ const cardSchema = new mongoose.Schema({
   position: Number,
   list: {
     type: String,
-    enum: ['ToDo', 'WorkInProgress', 'Done']
+    required: true,
+    enum: ['ToDo', 'Work In Progress', 'Done']
+  }
+}, {
+  timestamps: true,
+  toJSON: {
+    transform: (doc, ret) => {
+      ret.id = doc._id;
+      delete ret._id;
+      delete ret.__v;
+
+      return ret;
+    }
   }
 });
 
